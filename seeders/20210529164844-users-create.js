@@ -1,20 +1,16 @@
 'use strict';
 
+const { date } = require('faker');
 //const { ForeignKeyConstraintError } = require("sequelize/types");
 
-function dbconnect(){
-  var mysql = require('mysql2')
-  var connection = mysql.createConnection({
-      host : 'localhost',
-      user : 'root',
-      password : '',
-      database : 'farah'
-
-  });
   
-  connection.connect();
-  return connection
-}
+ var faker = require('faker');
+ faker.locale = 'fr';
+ 
+ 
+
+ 
+
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     /**
@@ -26,22 +22,31 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */  
+    let tab = Array();
+    for (let index = 0; index < 20; index++) {
+      var usernamee = faker.name.findName(); 
+      var emaill = faker.internet.email();
+      var passwordd = faker.internet.password();
+      var rolee = faker.random.arrayElement(['admin', 'author', 'guest', 'guest', 'guest', 'author','author', 'guest'])
+      var createdAtt = faker.date.past();
+      var updatedAtt = faker.date.recent();
+        let data2 = {
+        username: usernamee ,
+        email: emaill,
+        password: passwordd,
+        role: rolee,
+        createdAt: createdAtt,
+        updatedAt: updatedAtt
+      }
+
+      tab[index] = data2;
+    
+    }
+    
+
+    await queryInterface.bulkInsert('users',
+    tab, {});
   
-  var db = dbconnect()
-  
-  var faker = require('faker');
-  faker.locale = 'fr';
-  
-  
-  
-  var username = faker.name.findName(); 
-  var email = faker.internet.email();
-  var password = faker.internet.password();
-  var role = faker.random.arrayElement(['admin', 'author', 'guest', 'guest', 'guest', 'author','author', 'guest'])
-  var createdAt = faker.date.past();
-  var updatedAt = faker.date.recent();
-  
-  db.query('INSERT INTO users SET( username, email, password, role, createdAt, updateAt)')
   },
 
   down: async (queryInterface, Sequelize) => {
