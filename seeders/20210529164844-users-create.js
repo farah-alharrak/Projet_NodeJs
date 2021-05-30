@@ -7,10 +7,6 @@ const { date } = require('faker');
  var faker = require('faker');
  faker.locale = 'fr';
  
- 
-
- 
-
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     /**
@@ -28,8 +24,8 @@ module.exports = {
       var emaill = faker.internet.email();
       var passwordd = faker.internet.password();
       var rolee = faker.random.arrayElement(['admin', 'author', 'guest', 'guest', 'guest', 'author','author', 'guest'])
-      var createdAtt = faker.date.past();
-      var updatedAtt = faker.date.recent();
+      var createdAtt = faker.date.past();   /// pour avoir une date du passé
+      var updatedAtt = faker.date.recent();   /// pour avoir une date récente
         let data2 = {
         username: usernamee ,
         email: emaill,
@@ -43,7 +39,6 @@ module.exports = {
     
     }
     
-
     await queryInterface.bulkInsert('users',
     tab, {});
   
