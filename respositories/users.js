@@ -1,46 +1,39 @@
-//const { UniqueConstraintError } = require('sequelize/types')
-//const { SELECT } = require('sequelize/types/lib/query-types')
-const { User } = require('../models')
-const { Sequelize } = require('sequelize');
-const sequelize = new Sequelize("farah", "root", "", {
-    dialect: "mysql",
-    host: "localhost"
-});
 
+const { User } = require('../models')
 
 module.exports = {
     getAllUsers() {
         return User.findAll()
         },
         // méthodes à implémenter
-        getUsers(offset = 0, limit = 10) { },
-        getAdmins() { },
-        getAuthors() { },
-        getGuests(){ },
-        getUser(id) { },
-        getUserByEmail(email) { },
-        addUser(user) { },
-        updateUser() { },
-        deleteUser() { },
+        getUsers(offset = 0, limit = 10) {
+          return User?.findAll({ offset: offset, limit: limit});
+         },
+        getAdmins() {
+          return User?.findAll({where: {role: "admin"}});
+         },
+        getAuthors() { 
+          return User?.findAll({where: {role: "author"}});
+        },
+        getGuests(){
+          return User?.findAll({where: {role: "guest"}});
+         },
+        getUser(id) { 
+          return User?.findAll({where:{id: id}});
+        },
+        getUserByEmail(email) { 
+          return User?.findAll({where: {email: email}});
+        },
+        addUser(user) {
+          User?.create(user);
+         },
+        updateUser() { 
+          User?.update(user, {where: {id: id}});
+        },
+        deleteUser() {
+          User?.destroy({where: {id: id}})
+         },
         // D'autres méthodes jugées utiles
         }
 
-        function getAdmins() {
-            sequelize.query("SELECT id from users where role='admin'").then(([results, metadata]) => {
-                console.log(results);
-              })
-        }
         
-        function getAuthors() {
-            sequelize.query("SELECT username from users where role='author'").then(([results, metadata]) => {
-                console.log(results);
-              })
-        }
-
-        function getGuests() {
-            sequelize.query("SELECT id from users where role='guest'").then(([results, metadata]) => {
-                console.log(results);
-              })
-        }
-        
-      
