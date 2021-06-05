@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node ./bin/www",
+    "migrate": "sequelize db:drop & sequelize db:create & node ./migrate.js"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
@@ -12,9 +13,13 @@
     "jsonwebtoken": "^8.5.1",
     "morgan": "~1.9.1",
     "mysql2": "^2.2.5",
+    "node-fetch": "^2.6.1",
     "sequelize": "^6.6.2"
   },
   "devDependencies": {
     "faker": "^5.5.3"
   }
 }
+
+
+  

@@ -1,13 +1,73 @@
 <html>
 
 <head>
-  <title>Express</title>
   <link rel="stylesheet" href="/stylesheets/style.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Service utilisateurs</title>
+
 </head>
 
 <body>
-  <h1>Express</h1>
-  <p>Welcome to Express</p>
+  <br><br> <hr> <br><br><br><br>
+<div class="container">
+
+  <form action="users/add" method="post" >
+    <input type="text" name="username" placeholder="username" class="form-control"><br>
+    <input type="email" name="email" placeholder="Email"  class="form-control"> <br>
+    <input type="password" name="password" placeholder="Password" class="form-control"> <br>
+    <select name="role" class="form-control">
+      <option value="admin">Admin</option>
+      <option value="author">Author</option>
+      <option value="guest">Guest</option>
+    </select>
+    <br>
+    <button class="btn btn-primary" type="submit">Ajouter</button>
+    </form>
+
+<hr>
+
+<!-- the table -->
+
+<table class="table table-striped">
+  <tr>
+    <th>USERNAME</th>
+    <th>EMAIL</th>
+    <th>PASSWORD</th>
+    <th>ROLE</th>
+    <th></th>
+    <th></th>
+  </tr>
+</table>
+
+</div>
+
+<div id="gestion">
+  <button class="btn btn-danger" id="del" data-close> supprimer</button>
+
+    <form class="form-group" method="POST" id="update">
+    
+    <!--modifier un utilisateur -->
+          <input class="form-control" type="text" name="username" id="username" placeholder="Username">
+          <input class="form-control" type="email" name="email" id="email" placeholder="Email">
+          <input class="form-control" type="password" name="password" id="password" placeholder="Password">
+          <select class="form-control" name="role" id="role">
+              <option value="admin">Admin</option>
+              <option value="author">Author</option>
+              <option value="guest">Guest</option>
+          </select>
+          <br>
+       <button class="btn-primary" type="submit">modifier</button>
+      
+    </form>
+  </div>
+
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
 </body>
 
+<script src="public/javascripts/fetch.js" defer></script>
 </html>
