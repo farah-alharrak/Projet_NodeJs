@@ -2,6 +2,7 @@ function theTable(table,data){
     for(let e of data)
     {
         let user = {
+            id: e.id,
             username: e.username,
             email: e.email,
             password: e.password,
@@ -13,58 +14,55 @@ function theTable(table,data){
 
         for (let i in user) {
             let cellule = document.createElement("td");
-            if(i== "modifier"){
-                btn = document.createElement("BUTTON");
+            if(user[i]== "modifier"){
+                let btn = document.createElement("button");
+                btn.innerHTML=i;
+                btn.classList.add('btn');
+                btn.classList.add('btn-outline-primary');
+		        cellule.appendChild(btn);
+                row.appendChild(cellule);
+                btn.onclick = function() {
+                    fetch(`http://localhost:3000/users/${e.id}`, {
+                    method: 'put',  
+                }).then(location.reload())
+            }  
+            } 
+            else if(user[i] == "supprimer"){
+                let btn = document.createElement("button");
                 btn.innerHTML=i;
                 btn.classList.add('btn');
                 btn.classList.add('btn-outline-danger');
-                btn.onclick = function() {
-                    document.querySelector("#gestion").classList.add("is-visible");  /// gestion des bouttons supprimer et modifier
-                    document.querySelector("#update").setAttribute('action', `/users/:${e.id}`)
-                    cellule.appendChild(btn);
-            }  
-            } 
-            else if(i == "supprimer"){
-                btn = document.createElement("BUTTON");
-                btn.innerHTML=i;
-                btn.classList.add('btn');
-                btn.onclick = function() {
-                fetch(`http://localhost:3000/users/:${e.id}`, {
-                    method: 'DELETE',
-                }).then(location.reload())
                 cellule.appendChild(btn);
-            }
+                row.appendChild(cellule);
+                btn.onclick = function() {
+                fetch(`http://localhost:3000/:${e.id}`, {
+                    method: 'delete',
+                }).then(location.reload())
+                }
             }
     
         
-        else{  /// l'ajout dans la table
-            let cellText = document.createTextNode(user[i]);
-            cellule.appendChild(cellText);
-            row.appendChild(cellule);
-        }
+            else{  /// l'ajout des infos des users
+            let cellText = document.createTextNode(user[i]);   /// l'info dans la cellule
+            cellule.appendChild(cellText);   /// l'info dans la cellule
+            row.appendChild(cellule);   
+            }
         }    
-        table.appendChild(row);
+        table.appendChild(row);    /// l'ajout de la ligne dans la table
 
     }
     }
 
     
     let table = document.querySelector("table");
-    const fetch = require("node-fetch");
+    //const fetch = require("node-fetch");
 
 
 
-    fetch('http://localhost:3000/users/')    
+    fetch('http://localhost:3000/users/all')    
         .then(res => res.json())                  /// to read response body and parse as JSON
-        .then(data => theTable(table, data));
+        .then(data => theTable(table, data));     
 
 
 
- let btnClose = document.getElementById("del");
- btnClose.addEventListener("click", function() {
- const modal = document.querySelector("#gestion");
- modal.classList.remove("is-visible");
-        })
 
-
-theTable(table,data);

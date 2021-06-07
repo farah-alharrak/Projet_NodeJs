@@ -18,13 +18,14 @@ module.exports = {
      *   name: 'John Doe',
      *   isBetaMember: false
      * }], {});
-    */  
+    */ 
+   /* 
     let tab = Array();
     for (let index = 0; index < 20; index++) {
       var usernamee = faker.name.findName(); 
       var emaill = faker.internet.email();
       var passwordd = faker.internet.password();
-      var rolee = faker.random.arrayElement(['admin', 'author', 'guest', 'guest', 'guest', 'author','author', 'guest'])
+      var rolee = faker.random.arrayElement(['admin', 'author', 'guest'])
       var createdAtt = faker.date.past();   /// pour avoir une date du passé
       var updatedAtt = faker.date.recent();   /// pour avoir une date récente
         let data2 = {
@@ -41,7 +42,7 @@ module.exports = {
     }
     
     await queryInterface.bulkInsert('users',
-    tab, {});
+    tab, {});*/
   
   },
 

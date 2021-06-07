@@ -6,14 +6,16 @@ const auth = require('../middleware/auth.js');
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
+  usersRepo.getUsers(parseInt(req.query.offset), parseInt(req.query.limit))
+      .then((users) => res.status(200).json(users))
+      .catch(err => console.log(err));
 });
 
 
-router.get('/users', async function(req, res) {
-  let offset = req.query.offset;
-  let limit = req.query.limit;
-res.send(await usersRepo.getAllUsers(offset,limit))
+router.get('/all', async function(req, res) {
+  try{
+    res.send(await usersRepo.getAllUsers())
+}catch(err){(err => console.log(err));}
 
 });
 
@@ -25,7 +27,7 @@ router.get('/users/:role', (req, res) => {
   switch (req.params.role) {    // req.params object is used because it has access to all the parameters passed in the url
     case "admin":
       usersRepo.getAdmins()
-        .then(users => res.status(200).json(users))
+        .then(users => res.status(200).json(users))    
         .catch(err => console.log(err));
       break;
     case "author":
@@ -43,7 +45,7 @@ router.get('/users/:role', (req, res) => {
 
 /// par identifiant
 
-router.get('/users/:id', (req, res) => {
+router.get('/id/:id', (req, res) => {
 usersRepo.getUser(req.params.id)
   .then(user => res.status(200).json(user))
   .catch(err => console.log(err));
@@ -51,7 +53,7 @@ usersRepo.getUser(req.params.id)
 
 /// par email
 
-router.get('/users/:email', (req, res) => {
+router.get('/email/:email', (req, res) => {
 usersRepo.getUserByEmail(req.params.email)
   .then(user => res.status(200).json(user))
   .catch(err => console.log(err));
@@ -59,7 +61,7 @@ usersRepo.getUserByEmail(req.params.email)
 
 /// add user
 
-router.post('/users/add', auth, (req, res) => {
+router.post('/add', auth, (req, res) => {
 const {username, email, password, role} = req.body;
 
 if (!username || !email) {res.status(400).json({message: "veuillez entrer tous les elements"})}
@@ -78,7 +80,7 @@ else {
 }
 })
  /// la modification 
-router.post('/:id', auth, (req, res) => {
+router.put('/:id', auth, (req, res) => {
 usersRepo.updateUser(req.params.id, req.body);
 res.status(200).redirect("http://localhost:3000/");
 })
