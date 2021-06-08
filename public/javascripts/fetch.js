@@ -22,7 +22,7 @@ function theTable(table,data){
 		        cellule.appendChild(btn);
                 row.appendChild(cellule);
                 btn.onclick = function() {
-                    fetch(`http://localhost:3000/users/${e.id}`, {
+                    fetch(`http://localhost:3000/users/:${e.id}`, {
                     method: 'put',  
                 }).then(location.reload())
             }  
@@ -32,6 +32,7 @@ function theTable(table,data){
                 btn.innerHTML=i;
                 btn.classList.add('btn');
                 btn.classList.add('btn-outline-danger');
+                btn.setAttribute("type","submit");
                 cellule.appendChild(btn);
                 row.appendChild(cellule);
                 btn.onclick = function() {
