@@ -22,7 +22,7 @@ function theTable(table,data){
 		        cellule.appendChild(btn);
                 row.appendChild(cellule);
                 btn.onclick = function() {
-                    fetch(`http://localhost:3000/users/:${e.id}`, {
+                    fetch(`http://localhost:3000/users/${e.id}`, {
                     method: 'put',  
                 }).then(location.reload())
             }  
@@ -36,9 +36,7 @@ function theTable(table,data){
                 cellule.appendChild(btn);
                 row.appendChild(cellule);
                 btn.onclick = function() {
-                fetch(`http://localhost:3000/:${e.id}`, {
-                    method: 'delete',
-                }).then(location.reload())
+                fetch(`http://localhost:3000/users/${e.id}`, {method: 'delete'}).then(location.reload())
                 }
             }
     

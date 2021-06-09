@@ -64,7 +64,7 @@ usersRepo.getUserByEmail(req.params.email)
 router.post('/add', auth, (req, res) => {
 const {username, email, password, role} = req.body;
 
-if (!username || !email) {res.status(400).json({message: "veuillez entrer tous les elements"})}
+if (!username || !email || !password) {res.status(400).json({message: "veuillez entrer tous les elements"})}
 else {
           const newUser = {
             username,
@@ -74,7 +74,7 @@ else {
             createdAt: new Date(),
             updatedAt: new Date(),
           }
-        
+          
           usersRepo.addUser(newUser);
           res.status(200).redirect("http://localhost:3000/");  /// rediriger vers le port 3000
 }
@@ -90,7 +90,6 @@ router.delete('/:id', auth, (req, res) => {
 usersRepo.deleteUser(req.params.id);
 res.status(200).redirect("http://localhost:3000/");
 })
-
-
+ 
 
 module.exports = router;
