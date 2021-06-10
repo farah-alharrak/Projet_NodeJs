@@ -1,3 +1,4 @@
+
 const router = require('express').Router(); 
 const user = require('../models/user.js');
 const usersRepo = require('../respositories/users.js')
@@ -60,8 +61,8 @@ usersRepo.getUserByEmail(req.params.email)
 })
 
 /// add user
-
-router.post('/add', auth, (req, res) => {
+/*
+router.post('/add', async function(req, res, next) => {
 const {username, email, password, role} = req.body;
 
 if (!username || !email || !password) {res.status(400).json({message: "veuillez entrer tous les elements"})}
@@ -78,8 +79,37 @@ else {
           usersRepo.addUser(newUser);
           res.status(200).redirect("http://localhost:3000/");  /// rediriger vers le port 3000
 }
-})
+})*/
+
+router.post('/add', async function(req, res, next) {
+  try {
+    console.log('vers l ajout...')
+    const {username, email, password, role} = req.body;
+  if (!username || !email) 
+    res.status(500).json({ error: 'le champ email ou username est invalid' })
+  else {
+            let utilisateur = {
+              username,
+              email,
+              password, 
+              role,
+              createdAt: new Date(),
+              updatedAt: new Date(),
+            }
+            usersRepo.addUser(utilisateur);
+            res.status(200).redirect("http://localhost:3000/");
+            
+  }
+  } catch (err) {
+    console.error(`Error`, err.message);
+    next(err);
+  }
+  
+});
+
+
  /// la modification 
+ /*
 router.put('/:id', auth, (req, res) => {
 usersRepo.updateUser(req.params.id, req.body);
 res.status(200).redirect("http://localhost:3000/");
@@ -89,7 +119,39 @@ res.status(200).redirect("http://localhost:3000/");
 router.delete('/:id', auth, (req, res) => {
 usersRepo.deleteUser(req.params.id);
 res.status(200).redirect("http://localhost:3000/");
+}) 
+ */
+
+router.put('/:id',async function(req, res, next){
+  console.log("vers la modification")
+  try {
+    let id=req.params.id;
+    let user=usersRepo.getUser(id);
+    if(!user)
+      res.status(404).json({});
+    else
+    {
+      usersRepo.updateUser(id,req.body);
+      res.status(200).redirect("http://localhost:3000/");
+    }       
+  } catch (err) {
+    console.error(`Error`, err.message);
+    next(err);
+  }
+});
+
+router.delete('/:id',async function(req, res, next){
+  console.log('vers la suppression')
+
+  try {
+    let id=req.params.id;
+    usersRepo.deleteUser(id);
+    res.status(200).redirect("http://localhost:3000/");
+  } catch (err) {
+    console.error(`Error`, err.message);
+    next(err);
+  }
+  
 })
- 
 
 module.exports = router;

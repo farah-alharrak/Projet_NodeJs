@@ -14,7 +14,7 @@ function theTable(table,data){
 
         for (let i in user) {
             let cellule = document.createElement("td");
-            if(user[i]== "modifier"){
+            if(user[i]== "modifier"){/*
                 let btn = document.createElement("button");
                 btn.innerHTML=i;
                 btn.classList.add('btn');
@@ -22,10 +22,11 @@ function theTable(table,data){
 		        cellule.appendChild(btn);
                 row.appendChild(cellule);
                 btn.onclick = function() {
-                    fetch(`http://localhost:3000/users/${e.id}`, {
+                    /*fetch("http://localhost:3000/users/"+e.id , {
                     method: 'put',  
-                }).then(location.reload())
-            }  
+                })//.then(location.reload()) 
+                document.getElementById("update").setAttribute('action', "/users/"+e.id)
+            }*/
             } 
             else if(user[i] == "supprimer"){
                 let btn = document.createElement("button");
@@ -36,7 +37,9 @@ function theTable(table,data){
                 cellule.appendChild(btn);
                 row.appendChild(cellule);
                 btn.onclick = function() {
-                fetch(`http://localhost:3000/users/${e.id}`, {method: 'delete'}).then(location.reload())
+                fetch( "http://localhost:3000/users/"+e.id  , {
+                 method: 'delete' ,
+                }).then(location.reload())
                 }
             }
     
