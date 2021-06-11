@@ -20,7 +20,7 @@
     <br> <hr> <br><br>
     
   <div class="container">
-    <button id="add" class="btn btn-dark">ADD USER</button><br>
+    <button id="add" class="btn btn-dark">ADD USER</button><br><br>
     <form action="/users/add" method="post"  id="formulaire">
       <input type="text" name="username" placeholder="username" id="username2" class="form-control"><br>
       <input type="email" name="email" placeholder="Email" id="email2" class="form-control"> <br>
@@ -30,6 +30,23 @@
       <button class="btn btn-primary" type="submit" id="ajout">Ajouter</button>
     </form>
   
+
+
+  <div class="container2">
+    <button id="upd" class="btn btn-dark">UPDATE USER</button><br>
+    <form class="form-group" method="POST"  id="update">
+    
+    <!--modifier un utilisateur -->
+          <input type="text" name="id" id="id1" placeholder="Identifiant" class="form-control"> 
+          <input class="form-control" type="text" name="username" id="username1" placeholder="Username">
+          <input class="form-control" type="email" name="email" id="email1" placeholder="Email">
+          <input class="form-control" type="password" name="password" id="password1" placeholder="Password">
+          <input type="text" id="role1" placeholder="role">
+          <br>
+       <button class="btn btn-primary" id="boutton" type="submit" >modifier</button>
+    </form>
+
+  </div>
   <hr>
   
   <!-- the table -->
@@ -47,23 +64,7 @@
   </table>
   
   </div>
-  
-  
-    <div class="container2">
-  
-      <form class="form-group" method="POST"  id="update">
-      
-      <!--modifier un utilisateur -->
-            <input type="text" name="id" id="id1" placeholder="Identifiant" class="form-control"> 
-            <input class="form-control" type="text" name="username" id="username1" placeholder="Username">
-            <input class="form-control" type="email" name="email" id="email1" placeholder="Email">
-            <input class="form-control" type="password" name="password" id="password1" placeholder="Password">
-            <input type="text" id="role1" placeholder="role">
-            <br>
-         <button class="btn btn-primary" id="boutton" type="submit" >modifier</button>
-      </form>
-  
-    </div>
+
     
     <script>
       function modify(){
@@ -71,14 +72,19 @@
 
       }
 
-//////
+/***********les boutons**************/
 
 $('#add').click(()=>{
       $('#formulaire').slideToggle();
       })
 $('#formulaire').slideUp();
 
-///////
+////
+$('#upd').click(()=>{
+      $('#update').slideToggle();
+      })
+$('#update').slideUp();
+/***********************************/
 
 
 //// update
